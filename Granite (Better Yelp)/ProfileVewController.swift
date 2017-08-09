@@ -126,7 +126,6 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         
         if let uploadData = UIImagePNGRepresentation(self.profileImage.image!)
         {
-            
             storedImage.putData(uploadData, metadata: nil, completion: { (metadata, error) in
                 if error != nil {
                     print(error)

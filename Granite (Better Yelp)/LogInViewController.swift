@@ -14,6 +14,7 @@ import FirebaseAuth
 import FirebaseStorage
 import FirebaseDatabase
 import Alamofire
+import QuartzCore
 
 protocol LogInViewControllerDelegate: class {
 func finishLoggingIn()
@@ -147,6 +148,17 @@ class LogInViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+         navigationController?.setNavigationBarHidden(true, animated: false)
+        
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        // The reason we need this function is because this will show us the defualt back button on the next screen as oppose to showing us the default back button from both the initial and the next screen
+        navigationController?.setNavigationBarHidden(false, animated: true)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -156,6 +168,10 @@ class LogInViewController: UIViewController {
         view.addGestureRecognizer(tap)
         
         newUserButton.layer.cornerRadius = 10
+        emailTextField.layer.cornerRadius = 5
+        emailTextField.layer.masksToBounds = true
+        passwordTextField.layer.cornerRadius = 5
+        passwordTextField.layer.masksToBounds = true
     }
     
     func dismissKeyboard() {

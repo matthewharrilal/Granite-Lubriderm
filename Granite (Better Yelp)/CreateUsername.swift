@@ -59,7 +59,7 @@ class CreateUsername: UIViewController {
             
         }
         Auth.auth().createUser(withEmail: emailTextField.text!, password: passwordTextField.text!) { (user, error) in
-            if error != nil {
+            if error == nil {
             self.signUpErrors(error: error!, controller: self)
                 print("An error has occured pertaining to the user signing up")
             } else {

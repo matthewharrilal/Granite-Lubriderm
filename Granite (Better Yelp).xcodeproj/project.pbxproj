@@ -21,6 +21,8 @@
 		1CCA45CE1F29858D005C062C /* ProfileVewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CCA45CD1F29858D005C062C /* ProfileVewController.swift */; };
 		1CCA45D01F2A275A005C062C /* DirectionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CCA45CF1F2A275A005C062C /* DirectionsViewController.swift */; };
 		1CD226EB1F3A3C7000433883 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1CD226EA1F3A3C7000433883 /* Main.storyboard */; };
+		1CD226ED1F3AA0FC00433883 /* firstViewControllerBackgroundImage.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1CD226EC1F3AA0FC00433883 /* firstViewControllerBackgroundImage.jpg */; };
+		1CD226EF1F3AA7D900433883 /* Logo.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1CD226EE1F3AA7D900433883 /* Logo.jpg */; };
 		1CD906F11F24067D0085E102 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD906F01F24067D0085E102 /* AppDelegate.swift */; };
 		1CD906F31F24067D0085E102 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD906F21F24067D0085E102 /* ViewController.swift */; };
 		1CD906F81F24067D0085E102 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1CD906F71F24067D0085E102 /* Assets.xcassets */; };
@@ -48,6 +50,8 @@
 		1CCA45CD1F29858D005C062C /* ProfileVewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileVewController.swift; sourceTree = "<group>"; };
 		1CCA45CF1F2A275A005C062C /* DirectionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DirectionsViewController.swift; sourceTree = "<group>"; };
 		1CD226EA1F3A3C7000433883 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		1CD226EC1F3AA0FC00433883 /* firstViewControllerBackgroundImage.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = firstViewControllerBackgroundImage.jpg; sourceTree = "<group>"; };
+		1CD226EE1F3AA7D900433883 /* Logo.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Logo.jpg; sourceTree = "<group>"; };
 		1CD906ED1F24067D0085E102 /* Granite (Better Yelp).app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Granite (Better Yelp).app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1CD906F01F24067D0085E102 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1CD906F21F24067D0085E102 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -88,6 +92,8 @@
 		1C9CED2B1F2778BA002C4BCA /* Picture Files */ = {
 			isa = PBXGroup;
 			children = (
+				1CD226EE1F3AA7D900433883 /* Logo.jpg */,
+				1CD226EC1F3AA0FC00433883 /* firstViewControllerBackgroundImage.jpg */,
 				1C4D2CFE1F31189500C6FC4B /* laura-aziz-133168.jpg */,
 				1C4D2D001F3118AD00C6FC4B /* mike-erskine-144525.jpg */,
 				1C4D2D041F32352200C6FC4B /* redd-angelo-113258.jpg */,
@@ -256,6 +262,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				1CD906F81F24067D0085E102 /* Assets.xcassets in Resources */,
+				1CD226EF1F3AA7D900433883 /* Logo.jpg in Resources */,
+				1CD226ED1F3AA0FC00433883 /* firstViewControllerBackgroundImage.jpg in Resources */,
 				1C4D2CFD1F310DE300C6FC4B /* GoogleService-Info.plist in Resources */,
 				1C4D2D011F3118AD00C6FC4B /* mike-erskine-144525.jpg in Resources */,
 				1CD226EB1F3A3C7000433883 /* Main.storyboard in Resources */,

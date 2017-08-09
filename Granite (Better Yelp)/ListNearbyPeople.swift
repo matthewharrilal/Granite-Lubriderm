@@ -36,6 +36,7 @@ class ListNearbyPeople: UITableViewController {
         refHandle = databaseRef.child("users").observe(.childAdded, with: { (snapshot) in
             if let dictionary = snapshot.value as? [String: AnyObject] {
                 let user = HardCodedUsers(username: dictionary["username"] as! String, email: dictionary["email"] as! String, fullName: dictionary["fullName"] as! String, password: dictionary["password"] as! String
+                    
                 )
                 
                 //let user = HardCodedUsers(username: String(describing: DataSnapshot()) )
