@@ -18,12 +18,15 @@ import Alamofire
 
 class ListNearbyPeople: UITableViewController, UISearchBarDelegate {
     var hardCodedUsers = [HardCodedUsers]()
+    var userUsernames: [HardCodedUsers] = []
+    
+    var filteredSearchArray = [HardCodedUsers]()
     var databaseRef = Database.database().reference().child("users")
     let cellID = "nearbyPeopleCell"
     var refHandle: UInt!
     var username: String?
-
-    @IBOutlet weak var searchBar: UITableView!
+    
+    @IBOutlet weak var searchBar: UISearchBar!
     var isSearching = false
     
     //let database = Database.database().reference().dictionaryWithValues(forKeys: String([users]))
@@ -32,9 +35,15 @@ class ListNearbyPeople: UITableViewController, UISearchBarDelegate {
         super.viewDidLoad()
         databaseRef = Database.database().reference()
         fetchUsers()
+        tableView.delegate = self
+        tableView.dataSource = self
         searchBar.delegate = self
+        //        searchBar.returnKeyType = UIReturnKeyType.done
+        searchBar.returnKeyType = UIReturnKeyType.done
         
     }
+    
+    
     func fetchUsers() {
         // Fetches users from database
         refHandle = databaseRef.child("users").observe(.childAdded, with: { (snapshot) in
@@ -61,7 +70,7 @@ class ListNearbyPeople: UITableViewController, UISearchBarDelegate {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-       let indexPath = tableView.indexPathForSelectedRow!
+        let indexPath = tableView.indexPathForSelectedRow!
         let currentCell = tableView.cellForRow(at: indexPath)! as! UITableViewCell
         username = currentCell.textLabel?.text
         username = hardCodedUsers[indexPath.row].username
@@ -79,40 +88,44 @@ class ListNearbyPeople: UITableViewController, UISearchBarDelegate {
     
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return hardCodedUsers.count
+        //return hardCodedUsers.count
         if isSearching {
-        return hardCodedUsers.count
-        
+            return filteredSearchArray.count
+        } else {
+            return hardCodedUsers.count
         }
-        
-    }
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        if searchBar.text == nil || searchBar.text == "" {
-        isSearching = false
-            view.endEditing(true)
-            tableView.reloadData()
-        
-        }else {
-        isSearching = true
-           tableView.reloadData()
-        
-        }
-    }
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        // let cell = UITableViewCell(style: .subtitle, reuseIdentifier: cellID)
-        let cell = tableView.dequeueReusableCell(withIdentifier: "nearbyPeopleCell", for: indexPath)
-        cell.textLabel?.text = hardCodedUsers[indexPath.row].username
-   //   username = hardCodedUsers[indexPath.row].username
-        
-        // So essentially what we are doing here is that we are is assigning the value of the cells that display the usernames of the other users to the variable username we declared at the top of the class and why we are doing this is becauase we want the username to be displaying the usernames of the users from firebase but still we have to pass that data over to the profile view controller and we know to do this we have to use the prepare for segue function
-        // Set cell contents
-        if isSearching {
-        cell.textLabel?.text = hardCodedUsers[indexPath.row].username
-        }
-        return cell
-        
     }
     
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        //        //        // let cell = UITableViewCell(style: .subtitle, reuseIdentifier: cellID)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "nearbyPeopleCell", for: indexPath)
+        //        cell.textLabel?.text = hardCodedUsers[indexPath.row].username        //   username = hardCodedUsers[indexPath.row].username
+        //
+        //        // So essentially what we are doing here is that we are is assigning the value of the cells that display the usernames of the other users to the variable username we declared at the top of the class and why we are doing this is becauase we want the username to be displaying the usernames of the users from firebase but still we have to pass that data over to the profile view controller and we know to do this we have to use the prepare for segue function
+        //        //        // Set cell contents
+        //        return cell
+        if isSearching {
+            cell.textLabel?.text = filteredSearchArray[indexPath.row].username
+        } else {
+            cell.textLabel?.text = hardCodedUsers[indexPath.row].username
+        }
+        return cell
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchBar.text == nil || searchBar.text == "" {
+            isSearching = false
+            view.endEditing(true)
+            tableView.reloadData()
+        } else {
+            isSearching = true
+            filteredSearchArray = hardCodedUsers.filter{
+                //$0.username == searchBar.text!
+                $0.username.lowercased().range(of: (searchBar.text?.lowercased())!) != nil
+            }
+            tableView.reloadData()
+        }
+    }
     
     // So the problem we are essentially having is that we are stacking the views on the one profile view controller but when we get the second one that is the correct one so there is an error somewhere in the transition
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

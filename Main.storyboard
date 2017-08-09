@@ -79,7 +79,7 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Increase range in Settings for better search results" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="25" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I8S-9i-duA">
                                 <rect key="frame" x="95" y="376" width="225" height="53"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -135,7 +135,7 @@
                                 <rect key="frame" x="0.0" y="72" width="414" height="57"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="5cR-xh-mJ0" id="boW-3u-4Td">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="56.666666666666664"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </tableViewCellContentView>
@@ -147,8 +147,7 @@
                         </connections>
                     </tableView>
                     <connections>
-                        <outlet property="searchBar" destination="bcI-fe-Fel" id="TH1-pq-HVk"/>
-                        <outlet property="tableView" destination="bcI-fe-Fel" id="D7n-sO-AYl"/>
+                        <outlet property="searchBar" destination="tcr-gQ-yvU" id="Hcf-Ap-lx2"/>
                         <segue destination="ANz-VA-xNC" kind="show" identifier="toProfile" id="5Z2-46-WOf"/>
                     </connections>
                 </tableViewController>

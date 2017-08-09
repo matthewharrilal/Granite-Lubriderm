@@ -84,7 +84,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fT9-o5-lFM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2168.1159420289855" y="161.41304347826087"/>
+            <point key="canvasLocation" x="2166.666666666667" y="161.41304347826087"/>
         </scene>
         <!--MainStoryBoard-->
         <scene sceneID="vzK-Dm-0Q3">
@@ -188,7 +188,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="59V-aL-SQU" customClass="MainNavigationController" customModule="Granite__Better_Yelp_" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="8vb-PG-oOQ">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="8vb-PG-oOQ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
