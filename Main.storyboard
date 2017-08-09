@@ -121,16 +121,21 @@
         <scene sceneID="LLJ-U2-5EV">
             <objects>
                 <tableViewController id="yeZ-fa-3u8" customClass="ListNearbyPeople" customModule="Granite__Better_Yelp_" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="bcI-fe-Fel">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="57" sectionHeaderHeight="28" sectionFooterHeight="28" id="bcI-fe-Fel">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <searchBar key="tableHeaderView" contentMode="redraw" id="tcr-gQ-yvU">
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <textInputTraits key="textInputTraits"/>
+                        </searchBar>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="nearbyPeopleCell" rowHeight="75" id="5cR-xh-mJ0" customClass="TableViewCell" customModule="Granite__Better_Yelp_" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="414" height="75"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="nearbyPeopleCell" rowHeight="57" id="5cR-xh-mJ0" customClass="TableViewCell" customModule="Granite__Better_Yelp_" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="72" width="414" height="57"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="5cR-xh-mJ0" id="boW-3u-4Td">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="74"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </tableViewCellContentView>
@@ -142,13 +147,14 @@
                         </connections>
                     </tableView>
                     <connections>
+                        <outlet property="searchBar" destination="bcI-fe-Fel" id="TH1-pq-HVk"/>
                         <outlet property="tableView" destination="bcI-fe-Fel" id="D7n-sO-AYl"/>
                         <segue destination="ANz-VA-xNC" kind="show" identifier="toProfile" id="5Z2-46-WOf"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2G1-Gy-IyX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2808.8000000000002" y="99.400299850074973"/>
+            <point key="canvasLocation" x="2846.376811594203" y="13.858695652173914"/>
         </scene>
         <!--LogInStoryBoard-->
         <scene sceneID="ihL-AT-hcg">
@@ -163,7 +169,7 @@
             <objects>
                 <navigationController storyboardIdentifier="MainStoryBoard" title="&quot;Interests&quot;" automaticallyAdjustsScrollViewInsets="NO" id="g0A-fI-H7I" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="sJX-DX-6Ul">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="sJX-DX-6Ul">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
