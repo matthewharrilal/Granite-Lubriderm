@@ -17,15 +17,16 @@ import CoreData
 
 
 class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-      var authHandle: AuthStateDidChangeListenerHandle?
+    var authHandle: AuthStateDidChangeListenerHandle?
     
     var hardCodedUsers = [HardCodedUsers]()
     @IBOutlet weak var profileImage: UIImageView!
     var username: String?
     var users = [HardCodedUsers]()
+    @IBOutlet weak var userBio: UITextView!
     
     @IBOutlet weak var usernameLabel: UILabel!
-     var hello = 3
+    var hello = 3
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,7 +50,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     }
     
     @IBAction func logoutButton(_ sender: UIButton) {
-    
+        
         presentLogOut(viewController: self)
         // What this is essentially doing is that it is presenting the log out alert which makes sense becauase when the user taps on the log in button we want the alert to show up
     }
@@ -71,11 +72,11 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     func removeAuthListener (authHandle: AuthStateDidChangeListenerHandle?)
     {
         if let authHandle = authHandle{
-        
-        Auth.auth().removeStateDidChangeListener(authHandle)
-        
+            
+            Auth.auth().removeStateDidChangeListener(authHandle)
+            
         }
-    // So as we know what is happening is that what a handler does is that creates and returns an action with the specified behavior so what this does is almost like a setting function because what we are essentially doing is that we are changing the code within firebase to say change the listener block to a block that essentailly tells us that the user has signed out
+        // So as we know what is happening is that what a handler does is that creates and returns an action with the specified behavior so what this does is almost like a setting function because what we are essentially doing is that we are changing the code within firebase to say change the listener block to a block that essentailly tells us that the user has signed out
     }
     
     func logUserOut() {
@@ -84,8 +85,8 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         } catch let error as NSError {
             assertionFailure("Error: error signing in \(error.localizedDescription)")
         }
-        // So this block of code is detrimental to our code and what it  does exactly that it lets us log the user out so let us tackle this code line by line 
-        // we essentially want the code to sign our the verified user and we know if the user isnt verified then they cant be signed in 
+        // So this block of code is detrimental to our code and what it  does exactly that it lets us log the user out so let us tackle this code line by line
+        // we essentially want the code to sign our the verified user and we know if the user isnt verified then they cant be signed in
         // If their is an error with signing the user out then the error will be printed out in the console
     }
     
@@ -94,6 +95,8 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     
     @IBAction func saveChanges(_ sender: UIButton) {
         saveChanges()
+        saveUserBioChanges()
+        
         
     }
     
@@ -114,6 +117,29 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         dismiss(animated: true, completion: nil)
+    }
+    
+    func saveUserBioChanges() {
+        if !userBio.text.isEmpty,
+            let text = userBio.text{
+        // Save changes to the users bio
+                if let userID = Auth.auth().currentUser?.uid {
+                databaseRef.child("users").child(userID).observeSingleEvent(of: .value, with: { (snapshot) in
+//                    let values = snapshot.value as? NSDictionary
+//                    self.userBio.text = values?["userBio"] as? String
+                    print("The users bio has not been saved locally in user defaults yet but has been changed")
+                    self.databaseRef.child("users").child((Auth.auth().currentUser?.uid)!).updateChildValues(["userBio" : text])
+//                    let values = snapshot.value as? NSDictionary
+//                    text = values?["userBio"] as? String
+                    
+                // So essentially what is happening here is that we are basically saying thay when we press the save changes button we want to save the bio text and the reason we commented out the two lines of code here is because lets think about this we are declaring this new let constant called values and setting that equal to the snapshot from firebase and casting it as a dictionary and we know we cast them as a dictionary because we want to have a key and return the users info as a value and in the second line of code what we are essentially doing here is that we are saying that we want the user bio text equal to the dictionary key userBio now the problem with that is we are basically saying that we want the userbio text equal to the dictionary key but when we start the app and tap on the user the text is initially empty therefore it is going to store it as empty, thats why whenever we started the app the user bio was stored as an empty string in firebase so to go about this what we did was commentented the line out and then from there what we have is take this database reference to firebase to our users database and esserntially say we want to update our userBio child with the userbio text and we there declare it as a key value pair as you can see we set the text equal to the key userBio
+                    
+                    // And the reason we dont want to initalize is it because for this simple reason and that reason being is that every user has to have a username an email and a password ass well as their fullname to create their account but not ever user has to have a bio thereofore as we know every instance of a class represents a new user therefore we dont initalize t because if we did that means that every new user would have to have a bio
+                    
+                    // The next step is to be able to save their bio therefore when they restart the app their bio is still there r
+                })
+            }
+        }
     }
     
     func saveChanges() {
@@ -179,7 +205,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         
         // if the user chooses the selected image then let that be the image that is set as their profile image
     }
-
+    
     deinit {
         removeAuthListener(authHandle: authHandle)
         // So we can thing of this init as a cleanup before deallocating memory and what this essentially does is that it lets us clean up our code before it is returned to memory and what that essentially means is that it lets us change the listener block basically deinitializing the user after they log out so in essence when they log our they are getting initalized again and i know that may be confusing so if we further elaborate what is essentially happening is that we aee

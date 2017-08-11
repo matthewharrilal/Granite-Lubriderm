@@ -47,22 +47,27 @@ class ListNearbyPeople: UITableViewController, UISearchBarDelegate {
     func fetchUsers() {
         // Fetches users from database
         refHandle = databaseRef.child("users").observe(.childAdded, with: { (snapshot) in
-            if let dictionary = snapshot.value as? [String: AnyObject] {
-                let user = HardCodedUsers(username: dictionary["username"] as! String, email: dictionary["email"] as! String, fullName: dictionary["fullName"] as! String, password: dictionary["password"] as! String
-                )
+            guard let dictionary = snapshot.value as? [String: AnyObject],
+                let username = dictionary["username"] as? String,
+                let email = dictionary["email"] as? String,
+                let fullName = dictionary["fullName"] as? String,
+                let password = dictionary["password"] as? String else {
+                // So the reason i am thinking we are getting this bad instruction error is becauase the bio is something the user doesnt need to sign up therefore we dont need to initalize it and maybe we can go about it the same way we went about the profile pic, now the problem we are getting here is that it is finding nil in the database meaning theres no way to store that in firebase
                 
                 //let user = HardCodedUsers(username: String(describing: DataSnapshot()) )
                 
                 // What shpuld we pass in this username
                 
                 //user.setValuesForKeys(dictionary)
-                self.hardCodedUsers.append(user)
-                
-                DispatchQueue.main.async {
-                    self.tableView.reloadData()
-                }
-                
-                
+                    print("WHAT")
+                    return
+            }
+            let user = HardCodedUsers(username: username, email: email, fullName: fullName, password: password)
+            
+            self.hardCodedUsers.append(user)
+            
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
             }
         })
         

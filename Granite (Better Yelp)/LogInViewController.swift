@@ -130,6 +130,13 @@ class LogInViewController: UIViewController {
                 self.present(invalidPassword, animated: true, completion:  nil)
                 break;
                 
+                case "Error: User does not exist":
+                    let invalidAccount = UIAlertController(title: "This User Does Not Exist", message: "Please try logging in with a different account", preferredStyle: .alert)
+                    let cancelAction = UIAlertAction(title: "Try Again", style: .default, handler: nil)
+                invalidAccount.addAction(cancelAction)
+                self.present(invalidAccount, animated: true, completion:  nil)
+                    break;
+                
             default:
                 let logInFailedAlert = UIAlertController(title: "Trouble Logging In", message: "We are having trouble logging you in", preferredStyle: .alert)
                 let cancelAction = UIAlertAction(title: "Try Again", style: .default, handler: nil)

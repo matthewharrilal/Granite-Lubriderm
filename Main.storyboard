@@ -259,6 +259,7 @@
                     </view>
                     <connections>
                         <outlet property="profileImage" destination="nrQ-Jf-dV9" id="AMM-cF-h45"/>
+                        <outlet property="userBio" destination="ly3-Hh-EA7" id="BCt-Y3-B1M"/>
                         <outlet property="usernameLabel" destination="jkB-jh-Rrv" id="KRf-Ck-CpR"/>
                     </connections>
                 </viewController>
