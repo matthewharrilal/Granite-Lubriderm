@@ -73,7 +73,12 @@ class ListNearbyPeople: UITableViewController, UISearchBarDelegate {
         let indexPath = tableView.indexPathForSelectedRow!
         let currentCell = tableView.cellForRow(at: indexPath)! as! UITableViewCell
         username = currentCell.textLabel?.text
+        if isSearching {
+        username = filteredSearchArray[indexPath.row].username
+        } else {
         username = hardCodedUsers[indexPath.row].username
+        }
+     //   username = hardCodedUsers[indexPath.row].username
         performSegue(withIdentifier: "toProfile", sender: self)
         
         // So essentially what made our code work was that because as oppose to the cell for row at function we are essentially setting the data here as oppose to in the cell for row we are only displaying the username of the user in the corresponding cell in the row and in addtion to that in the prepare for segue as we know we use that function when we want to pass data from one view controller to another therefore in combination of those two previous functions the prepare for segue function and the cell for row at those two together essentially show us the username of the user in the cell and pass the data from one view controller to another but that does not neccesarily mean that they set the data therefore with this did select row is what it essentially does is when we tap on the cell that passes the data from one view controller to another we have to set the data in the next view controller so by this works in our benefit because we want to pass the usernames of the users and set them in the next view controller as their username in the username label
@@ -104,11 +109,16 @@ class ListNearbyPeople: UITableViewController, UISearchBarDelegate {
         //        // So essentially what we are doing here is that we are is assigning the value of the cells that display the usernames of the other users to the variable username we declared at the top of the class and why we are doing this is becauase we want the username to be displaying the usernames of the users from firebase but still we have to pass that data over to the profile view controller and we know to do this we have to use the prepare for segue function
         //        //        // Set cell contents
         //        return cell
-        if isSearching {
+        if isSearching  {
+            print("The filtered search results are getting printed on the table view cells")
             cell.textLabel?.text = filteredSearchArray[indexPath.row].username
         } else {
-            cell.textLabel?.text = hardCodedUsers[indexPath.row].username
+            print("The filtered search results are not getting printed on the table view cells")
+                cell.textLabel?.text = hardCodedUsers[indexPath.row].username
+            // This is what is getting hit this else statement
         }
+        
+        
         return cell
     }
     

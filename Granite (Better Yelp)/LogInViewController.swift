@@ -34,9 +34,18 @@ class LogInViewController: UIViewController {
     let databaseRef = Database.database().reference(fromURL: "https://granite3-dbd3a.firebaseio.com")
     //  Making our references at the start of the project makes our lives easier in terms of now we know what we already have and we just declare them here so we are not doing it while we go through the project
     
-    
+    var activityIndicatior: UIActivityIndicatorView = UIActivityIndicatorView()
     @IBAction func logInButton(_ sender: UIButton) {
-        print("Hey now youre a rockstar")
+        
+        activityIndicatior.center = self.view.center
+        activityIndicatior.hidesWhenStopped = true
+        activityIndicatior.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
+        view.addSubview(activityIndicatior)
+        
+        activityIndicatior.startAnimating()
+        UIApplication.shared.beginIgnoringInteractionEvents()
+        activityIndicatior.stopAnimating()
+    UIApplication.shared.endIgnoringInteractionEvents()
         if emailTextField.text != "" {
             
         }
