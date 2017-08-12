@@ -136,7 +136,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
                     
                     // And the reason we dont want to initalize is it because for this simple reason and that reason being is that every user has to have a username an email and a password ass well as their fullname to create their account but not ever user has to have a bio thereofore as we know every instance of a class represents a new user therefore we dont initalize t because if we did that means that every new user would have to have a bio
                     
-                    // The next step is to be able to save their bio therefore when they restart the app their bio is still there r
+                    // The next step is to be able to save their bio therefore when they restart the app their bio is still there and this incorporates user defualts
                 })
             }
         }

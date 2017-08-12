@@ -59,16 +59,25 @@ class CreateUsername: UIViewController {
             
         }
         Auth.auth().createUser(withEmail: emailTextField.text!, password: passwordTextField.text!) { (user, error) in
-            if error == nil {
-            self.signUpErrors(error: error!, controller: self)
+            if error == nil  {
+                print(error?.localizedDescription)
+            self.signUpErrors(error: (error)!, controller: self)
+                print("There has been a sign up error please try again")
                 print("An error has occured pertaining to the user signing up")
+                UserService.create(self.usernameTextField.text!, self.emailTextField.text!, self.fullName.text!, self.passwordTextField.text!, completion: { (user) in
+                    guard let user = user
+                        else{
+                    return
+                            
+                    }
+                })
             } else {
             self.performSegue(withIdentifier: "fromCreateUsername", sender: self)
             
             }
         }
         
-        
+         
         
         if agreementTextField.text == "Yes" || agreementTextField.text == "yes"   {
             
