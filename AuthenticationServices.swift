@@ -11,7 +11,8 @@ import Firebase
 import FirebaseAuthUI
 import Alamofire
 import UIKit
-
+import FirebaseAuth
+typealias FIRUser = FirebaseAuth.User
 struct AuthenticationUserServices {
 // Handles the login errors as well the sign up errors that may occur
     
@@ -44,8 +45,20 @@ struct AuthenticationUserServices {
         }
     }
     
+    static func createUser(controller: UIViewController, email: String, password: String, completion: @escaping (FIRUser)-> Void) {
+        Auth.auth().createUser(withEmail: email, password: password) { (user, error) in
+            if let error = error {
+              signUpErrors0(error: error, controller: controller)
+                
+               
+                
+                return 
+            }
+            return completion(Auth.auth().currentUser!)
+        }
+    }
     
-    func signUpErrors(error: Error, controller: UIViewController) {
+    static func signUpErrors0(error: Error, controller: UIViewController) {
         switch(error.localizedDescription) {
         case "The email address is badly formatted.":
             let invalidEmail = UIAlertController(title: "Email is not properly formatted.", message:

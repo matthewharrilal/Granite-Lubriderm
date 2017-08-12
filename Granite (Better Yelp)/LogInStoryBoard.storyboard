@@ -143,6 +143,7 @@
                                 </state>
                                 <connections>
                                     <action selector="createAccount:" destination="ijx-IL-w2l" eventType="touchUpInside" id="aze-Kv-As5"/>
+                                    <segue destination="1MS-aE-oiQ" kind="show" id="FpZ-VC-NFp"/>
                                 </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Username" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="KfV-ay-Htc">
@@ -176,7 +177,6 @@
                         <outlet property="fullName" destination="Dbg-YW-Etb" id="aeZ-cv-7gI"/>
                         <outlet property="passwordTextField" destination="TZg-2U-8bQ" id="iL2-za-dAa"/>
                         <outlet property="usernameTextField" destination="KfV-ay-Htc" id="K4m-TE-hay"/>
-                        <segue destination="1MS-aE-oiQ" kind="show" identifier="fromCreateUsername" id="sHv-Oq-XMD"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kn3-Ul-HC4" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -188,7 +188,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="59V-aL-SQU" customClass="MainNavigationController" customModule="Granite__Better_Yelp_" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="8vb-PG-oOQ">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="8vb-PG-oOQ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -206,6 +206,6 @@
         <image name="firstViewControllerBackgroundImage.jpg" width="500" height="750"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="sHv-Oq-XMD"/>
+        <segue reference="FpZ-VC-NFp"/>
     </inferredMetricsTieBreakers>
 </document>

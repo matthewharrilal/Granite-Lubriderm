@@ -46,6 +46,15 @@ struct UserService {
         // Now in the last line of code what we are essentially doing is that we are taking the let constant we declared earlier, ref, and using the set value property which what that does is that it basically writes  to the database fire base location but it doesnt know what to write so remember how we would address why we would create a let constant that basically holds all the dictionary data well this is where we use it so we pass in that data so it know what to write in the firebase location, but you are still probably wondering even though it knows what to write how does it know where to write so the reason we put ref behind this set vle is becuase the let constant holds the pathway to the usernames of users database so thats how it knows where to  write it becuase we are literlaly taking it along the pathway of where we want it to write to 
     }
     
+    static func createUser(controller: UIViewController, email: String, password: String, completion: @escaping (FIRUser)-> Void) {
+    Auth.auth().createUser(withEmail: email, password: password) { (user, error) in
+        if let error = error {
+            signUpErrors0(error: error, controller: controller)
+           return 
+        }
+        return completion(Auth.auth().currentUser!)
+        }
+    }
     
     
     // The reason we are not making this private in the first place is becuause we are going to call it later so in a sense we want it public
@@ -59,6 +68,24 @@ struct UserService {
             }
             completion(user)
         })
+    }
+   private static func signUpErrors0(error: Error, controller: UIViewController) {
+        switch (error.localizedDescription) {
+            //        case "The email address is badly formatted.":
+            //            let invalidEmailAlert = UIAlertController(title: "This email address is badly formatted", message: "Please try again with a different and correctly formatted email address", preferredStyle: .alert)
+            //            let cancelAction = UIAlertAction(title: "Okay", style: .default, handler: nil)
+            //            invalidEmailAlert.addAction(cancelAction)
+            //            controller.present(invalidEmailAlert, animated: true, completion: nil)
+        //            break;
+        default:
+            let signUpErrorAlert = UIAlertController(title: "Trouble Signing You Up", message: "Please try creating an account at a later and more convient time", preferredStyle: .alert)
+            let cancelAction = UIAlertAction(title: "Okay", style: .default, handler: nil)
+            signUpErrorAlert.addAction(cancelAction)
+            controller.present(signUpErrorAlert, animated: true, completion:  nil)
+            
+            
+        }
+        
     }
     
 }
