@@ -31,51 +31,52 @@ class CreateUsername: UIViewController {
     
     // Actions
     @IBAction func createAccount(_ sender: UIButton) {
-       // signUp()
-        
-        if fullName.text != "" {
-            
-            
-        } else{
-            textFieldIsEmpty()
-        }
-        
-        if emailTextField.text != "" {
-            
-        }
-        else{
-            textFieldIsEmpty()
-        }
-        if usernameTextField.text != "" {
-            
-        }else {
-            textFieldIsEmpty()
-        }
-        if passwordTextField.text != "" {
-            
-        }
-        else{
-            textFieldIsEmpty()
-            
-        }
+        // signUp()
+        //
+        //        if fullName.text != "" {
+        //
+        //
+        //        } else{
+        //            textFieldIsEmpty()
+        //        }
+        //
+        //        if emailTextField.text != "" {
+        //
+        //        }
+        //        else{
+        //            textFieldIsEmpty()
+        //        }
+        //        if usernameTextField.text != "" {
+        //
+        //        }else {
+        //            textFieldIsEmpty()
+        //        }
+        //        if passwordTextField.text != "" {
+        //
+        //        }
+        //        else{
+        //            textFieldIsEmpty()
+        //
+        //        }
         // This creates creates the user in the firebase authentication
         Auth.auth().createUser(withEmail: emailTextField.text!, password: passwordTextField.text!) { (user, error) in
             if let error = error {
-                
+                  self.signUpErrors(error: error, controller: self)
                 print(error.localizedDescription)
-                AuthenticationUserServices.signUpErrors0(error: error, controller: self)
+                //  AuthenticationUserServices.signUpErrors0(error: error, controller: self)
+              
                 
-// So essentially what we are doing here is that we are saying if the error is existent then show us the signup error but the problem we were having was that when we were saying that if the error does not exist becuase that was the only time we can actually work but the user returns nil but therefore it hits both the if and else statement
+                // So essentially what we are doing here is that we are saying if the error is existent then show us the signup error but the problem we were having was that when we were saying that if the error does not exist becuase that was the only time we can actually work but the user returns nil but therefore it hits both the if and else statement
                 return
             } else {
                 
-// This creates the user inside the database
+                // This creates the user inside the database
                 UserService.create(self.usernameTextField.text!, self.emailTextField.text!, self.fullName.text!, self.passwordTextField.text!, completion: { (user) in
                     guard let user = user
                         else{
-                           
+                            
                             return
-    // But if the error is non existent we are going to create the user in the database
+                            // But if the error is non existent we are going to create the user in the database
                     }
                 })
                 
@@ -124,73 +125,80 @@ class CreateUsername: UIViewController {
     }
     
     func signUpErrors(error: Error, controller: UIViewController) {
-        switch (error.localizedDescription) {
-            //        case "The email address is badly formatted.":
-            //            let invalidEmailAlert = UIAlertController(title: "This email address is badly formatted", message: "Please try again with a different and correctly formatted email address", preferredStyle: .alert)
-            //            let cancelAction = UIAlertAction(title: "Okay", style: .default, handler: nil)
-            //            invalidEmailAlert.addAction(cancelAction)
-            //            controller.present(invalidEmailAlert, animated: true, completion: nil)
-        //            break;
-        default:
-            let signUpErrorAlert = UIAlertController(title: "Trouble Signing You Up", message: "Please try creating an account at a later and more convient time", preferredStyle: .alert)
-            let cancelAction = UIAlertAction(title: "Okay", style: .default, handler: nil)
-            signUpErrorAlert.addAction(cancelAction)
-            controller.present(signUpErrorAlert, animated: true, completion:  nil)
-            
-            
+        if emailTextField.text == "" || passwordTextField.text == "" || fullName.text == "" || usernameTextField.text == "" || agreementTextField.text != "yes" || agreementTextField.text == "Yes"{
+            let wrongMove = UIAlertController(title: "Missing Input", message: "Please check the required text fields to make sure everything is satisfied", preferredStyle: .alert)
+            let cancelAction = UIAlertAction(title: "Try Again", style: .default, handler: nil)
+            wrongMove.addAction(cancelAction)
+            self.present(wrongMove, animated: true, completion: nil)
+        } else {
+            switch(error.localizedDescription) {
+            case "The email address is badly formatted.":
+                let invalidEmailAlert = UIAlertController(title: "This email address is badly formatted", message: "Please try again with a different and correctly formatted email address", preferredStyle: .alert)
+                let cancelAction = UIAlertAction(title: "Okay", style: .default, handler: nil)
+                invalidEmailAlert.addAction(cancelAction)
+                self.present(invalidEmailAlert, animated: true, completion: nil)
+                break;
+            default:
+                let signUpErrorAlert = UIAlertController(title: "Trouble Signing You Up", message: "Please try creating an account at a later and more convient time", preferredStyle: .alert)
+                let cancelAction = UIAlertAction(title: "Okay", style: .default, handler: nil)
+                signUpErrorAlert.addAction(cancelAction)
+                self.present(signUpErrorAlert, animated: true, completion:  nil)
+                
+                
+            }
         }
         
     }
     
-//    func signUp() {
-//        guard let fullName = fullName.text
-//            else {
-//                print("full name errror")
-//                return
-//        }
-//        guard let email = emailTextField.text
-//            else {
-//                print("email issue")
-//                return
-//        }
-//        guard let username = usernameTextField.text
-//            else{
-//                print("username issue")
-//                return
-//        }
-//        guard let password = passwordTextField.text
-//            else{
-//                print("password issue")
-//                return
-//        }
-//        // The verifcation of new users
-//        Auth.auth().createUser(withEmail: email, password: password) { (user, error) in
-//            if error != nil {
-//                print(error)
-//                return
-//            }
-//            // We have to give each new user that is being made a specific user identification and why we dont put this code in the log in function is because if they are able to log in that means they already have a unique user identification
-//            // and of course we know  uid is for firebase
-//            guard let uid = user?.uid // Here we are essentially casting their user uid as a string
-//                else {
-//                    print("user uid issue")
-//                    return
-//            }
-//            let userReference = self.databaseRef.child("users").child(uid)
-//            // We are essentailly holding the users user identification here
-//            let values = ["username": username, "email": email, "password": password, "fullName": fullName]
-//            // What we are essentially doing here is that we are creating these keys to hold these specific users information so for example we are creating a key to contain all our
-//            userReference.updateChildValues(values, withCompletionBlock: { (error, ref) in
-//                if error != nil {
-//                    print("error updating child values")
-//                    print(error)
-//                    return
-//                }
-//                self.dismiss(animated: true, completion: nil)
-//            })
-//        }
-//        
-//    }
+    //    func signUp() {
+    //        guard let fullName = fullName.text
+    //            else {
+    //                print("full name errror")
+    //                return
+    //        }
+    //        guard let email = emailTextField.text
+    //            else {
+    //                print("email issue")
+    //                return
+    //        }
+    //        guard let username = usernameTextField.text
+    //            else{
+    //                print("username issue")
+    //                return
+    //        }
+    //        guard let password = passwordTextField.text
+    //            else{
+    //                print("password issue")
+    //                return
+    //        }
+    //        // The verifcation of new users
+    //        Auth.auth().createUser(withEmail: email, password: password) { (user, error) in
+    //            if error != nil {
+    //                print(error)
+    //                return
+    //            }
+    //            // We have to give each new user that is being made a specific user identification and why we dont put this code in the log in function is because if they are able to log in that means they already have a unique user identification
+    //            // and of course we know  uid is for firebase
+    //            guard let uid = user?.uid // Here we are essentially casting their user uid as a string
+    //                else {
+    //                    print("user uid issue")
+    //                    return
+    //            }
+    //            let userReference = self.databaseRef.child("users").child(uid)
+    //            // We are essentailly holding the users user identification here
+    //            let values = ["username": username, "email": email, "password": password, "fullName": fullName]
+    //            // What we are essentially doing here is that we are creating these keys to hold these specific users information so for example we are creating a key to contain all our
+    //            userReference.updateChildValues(values, withCompletionBlock: { (error, ref) in
+    //                if error != nil {
+    //                    print("error updating child values")
+    //                    print(error)
+    //                    return
+    //                }
+    //                self.dismiss(animated: true, completion: nil)
+    //            })
+    //        }
+    //        
+    //    }
     
     
 }

@@ -243,5 +243,5 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         
     }
     // So the  error we are facing as of now is that it is not grabbing the username value from firebase and implementing it into our username label text
-    // We figured out the solution to the problem and the problem was that we were assigning auto uids to the new users and they were getting authenticated with a different uid meaning that there was a discrepancy within the user identifcation not being able to connect the 
+    // We figured out the solution to the problem and the problem was that we were assigning auto uids to the new users and they were getting authenticated with a different uid meaning that there was a discrepancy within the user identifcation not being able to connect between the authenticated user and the database user
 }

@@ -7,15 +7,15 @@ target 'Granite (Better Yelp)' do
 
   # Pods for Granite (Better Yelp)
 
-	pod 'Firebase/Core'
+ pod 'Firebase/Core'
  pod 'Firebase/Auth'
  pod 'FirebaseUI/Auth'
  pod 'Firebase/Database'
  pod 'Firebase/Storage'
  pod 'Kingfisher', '~> 3.0'
-	pod ‘GoogleMaps’
-	pod ‘GooglePlaces’
-	pod ‘GoogleMapsDirections’
-	 pod 'Alamofire'
-	pod 'SwiftyJSON', :git =>'https://github.com/SwiftyJSON/SwiftyJSON.git'	
+ pod ‘GoogleMaps’
+ pod ‘GooglePlaces’
+ pod ‘GoogleMapsDirections’
+ pod 'Alamofire'
+ pod 'SwiftyJSON', :git =>'https://github.com/SwiftyJSON/SwiftyJSON.git'	
 end
