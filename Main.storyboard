@@ -107,7 +107,7 @@
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
-                                    <segue destination="ANz-VA-xNC" kind="show" id="5zI-gd-xCR"/>
+                                    <segue destination="ANz-VA-xNC" kind="show" identifier="toProfile" id="5zI-gd-xCR"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -146,7 +146,7 @@
                                 <rect key="frame" x="0.0" y="72" width="414" height="57"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="5cR-xh-mJ0" id="boW-3u-4Td">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="57"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="56.666666666666664"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </tableViewCellContentView>
@@ -159,12 +159,12 @@
                     </tableView>
                     <connections>
                         <outlet property="searchBar" destination="tcr-gQ-yvU" id="Hcf-Ap-lx2"/>
-                        <segue destination="ANz-VA-xNC" kind="show" identifier="toProfile" id="5Z2-46-WOf"/>
+                        <segue destination="JXb-0e-zqX" kind="show" identifier="toProfile" id="z8C-bH-gNk"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2G1-Gy-IyX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2846.376811594203" y="13.858695652173914"/>
+            <point key="canvasLocation" x="2965" y="105"/>
         </scene>
         <!--LogInStoryBoard-->
         <scene sceneID="ihL-AT-hcg">
@@ -265,6 +265,12 @@
                                     <action selector="logoutButton:" destination="ANz-VA-xNC" eventType="touchUpInside" id="ZSo-K6-sI5"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2qF-cG-yod">
+                                <rect key="frame" x="253" y="485" width="129" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="Helpful Tips"/>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.29803921568627451" green="0.37254901960784315" blue="0.34901960784313724" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
@@ -290,29 +296,36 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6F6-OZ-LAQ">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="222"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0ss-1w-Mgs">
-                                <rect key="frame" x="67" y="182" width="240" height="128"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="pO2-34-pc8">
-                                <rect key="frame" x="0.0" y="318" width="375" height="204"/>
+                                <rect key="frame" x="0.0" y="318" width="414" height="207"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ePV-QF-Lnr">
+                                <rect key="frame" x="128" y="245" width="158" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0ss-1w-Mgs">
+                                <rect key="frame" x="87" y="109" width="240" height="128"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.29803921568627451" green="0.37254901960784315" blue="0.34901960784313724" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
+                    <connections>
+                        <outlet property="usernameLabel" destination="ePV-QF-Lnr" id="Rmz-kj-9IP"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4aY-Uc-9Aa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3716" y="105.69715142428787"/>
+            <point key="canvasLocation" x="3715.9420289855075" y="105.16304347826087"/>
         </scene>
         <!--Directions View Controller-->
         <scene sceneID="iFe-5S-vaP">
@@ -338,7 +351,4 @@
     <resources>
         <image name="laura-aziz-133168.jpg" width="4032" height="3022"/>
     </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="5zI-gd-xCR"/>
-    </inferredMetricsTieBreakers>
 </document>

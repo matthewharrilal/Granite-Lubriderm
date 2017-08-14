@@ -22,17 +22,20 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     var hardCodedUsers = [HardCodedUsers]()
     @IBOutlet weak var profileImage: UIImageView!
     var username: String?
-    var users = [HardCodedUsers]()
+//    var users = [HardCodedUsers]()
     @IBOutlet weak var userBio: UITextView!
     
     @IBOutlet weak var usernameLabel: UILabel!
     var hello = 3
     
-    override func viewDidLoad() {
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setupProfile()
+    }
+       override func viewDidLoad() {
         super.viewDidLoad()
         authHandle = authListener(viewController: self)
-        setupProfile()
-        usernameLabel.text = self.username
+       
     }
     
     func presentLogOut(viewController: UIViewController) {
@@ -185,7 +188,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         
     }
     
-    func imagePickerController(_ picker: UIImagePickerController,  info: [String: Any]) {
+    func imagePickerController(_ picker: UIImagePickerController,  didFinishPickingMediaWithInfo info: [String: Any]) {
         var selectedImageFromPicker: UIImage?
         
         if let editedImage = info["UIImagePickerControllerEditedImage"] as? UIImage{
@@ -216,9 +219,10 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         profileImage.layer.cornerRadius = profileImage.frame.size.width/2
         profileImage.clipsToBounds = true
         let uid = Auth.auth().currentUser?.uid
-        databaseRef.child("users").child(uid!).observeSingleEvent(of: .value, with: { (snapshot) in
-            if let dict = snapshot.value as? [String: AnyObject] {
-                //self.usernameTextField.text = dict["username"] as! String
+        Database.database().reference().child("users").child(uid!).observeSingleEvent(of: .value, with: { (snapshot) in
+            if let dict = snapshot.value as? [String: Any] {
+                self.usernameLabel.text = dict["username"] as? String
+                print(self.usernameLabel.text)
                 if let profileImageURL = dict["pic"] as? String {
                     let url = URL(string: profileImageURL)
                     URLSession.shared.dataTask(with: url!, completionHandler: { (data, response, error) in
@@ -238,4 +242,6 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         })
         
     }
+    // So the  error we are facing as of now is that it is not grabbing the username value from firebase and implementing it into our username label text
+    // We figured out the solution to the problem and the problem was that we were assigning auto uids to the new users and they were getting authenticated with a different uid meaning that there was a discrepancy within the user identifcation not being able to connect the 
 }

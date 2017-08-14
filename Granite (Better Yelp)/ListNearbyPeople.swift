@@ -147,7 +147,7 @@ class ListNearbyPeople: UITableViewController, UISearchBarDelegate {
         
         if let identifier = segue.identifier {
             if identifier == "toProfile" {
-                let profileViewController = segue.destination as? ProfileViewController
+                let profileViewController = segue.destination as? ProfileThatUsersSee
                 //  So essentially we know that the username we gave declared earlier now contains the usernames of the users from firebase but yet we have to pass that on to the next view controller thats why we are in this function therefore we have to finda way to pass that data over
                 //   print(username)
                 print(profileViewController?.username)
