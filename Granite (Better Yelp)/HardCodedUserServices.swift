@@ -69,9 +69,13 @@ struct UserService {
         databaseReference.observeSingleEvent(of: .value, with: { (snapshot) in
             guard let snapshot = snapshot.children.allObjects as? [DataSnapshot]
                 else {return completion([])}
-            
+            let uid = Auth.auth().currentUser
+            //let users = snapshot.flatMap(HardCodedUsers.init).filter { $0.uid != currentUser.username }
         })
-    // So essentially what we are doing here is that we are 
+    // So essentially what we are doing here is that we are getting a snapshot from firebase as we are observing the data and if we cant observe we will just return the array of users at least thats what I am thinking is happening
+        
+        // Take a snapshot and make a few transformations and what I believe that means is that since we are embedded in the data at the database withing our firebase we have to now filter the current user out 
+        
     }
     
     static func observeProfile(for user: HardCodedUsers, completion: @escaping(DatabaseReference, HardCodedUsers?) -> Void )-> DatabaseHandle {

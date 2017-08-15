@@ -37,10 +37,14 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     override func viewDidLoad() {
         super.viewDidLoad()
         authHandle = authListener(viewController: self)
-        
-        
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
     }
     
+    func dismissKeyboard() {
+    view.endEditing(true)
+    }
     // So essentially with the code that is about to come what we have to do is instead of saving the profile image to user defaults we can constantly be listening to the profile pic of the user  and listen for any updates and every time the  user opens up the app we can retrieve the photo from firebase
         func presentLogOut(viewController: UIViewController) {
         let logOutAlert = UIAlertController(title: "Log Out", message: "Continue with this action if you want to log out", preferredStyle: .alert)
@@ -192,6 +196,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         // So what we have to do is first fix the issue that when we press the save changes button the username saves for all the users but what we want is that when we press the save change button that it only saves for the individual user
         
     }
+    
     
     func imagePickerController(_ picker: UIImagePickerController,  didFinishPickingMediaWithInfo info: [String: Any]) {
         var selectedImageFromPicker: UIImage?
