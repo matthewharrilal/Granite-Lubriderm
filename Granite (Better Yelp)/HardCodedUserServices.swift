@@ -56,6 +56,17 @@ struct UserService {
         return completion(Auth.auth().currentUser!)
         }
     }
+    static func observeProfile(for user: HardCodedUsers, completion: @escaping(DatabaseReference, HardCodedUsers?) -> Void )-> DatabaseHandle {
+        let uid = Auth.auth().currentUser?.uid
+    let userRef = Database.database().reference().child("users").child(uid!)
+        return userRef.observe(.value, with: { snapshot in
+            guard let user = HardCodedUsers(snapshot: snapshot) else {
+                return completion(userRef, nil)
+            }
+            completion(userRef, user)
+        })
+        // So essentially what we are doing here is that we are observing the users profiles for any changes that are being made and by using the completion handler with the @escaping it has happening asynchronously as well as listening constantly for any changes
+    }
     
     
     // The reason we are not making this private in the first place is becuause we are going to call it later so in a sense we want it public
@@ -70,6 +81,8 @@ struct UserService {
             completion(user)
         })
     }
+    
+    
    private static func signUpErrors0(error: Error, controller: UIViewController) {
         switch (error.localizedDescription) {
             //        case "The email address is badly formatted.":

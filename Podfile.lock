@@ -56,6 +56,7 @@ PODS:
   - Kingfisher (3.10.3)
   - ObjectMapper (2.2.7)
   - SwiftyJSON (3.1.4)
+  - VideoBackground (0.1.0)
 
 DEPENDENCIES:
   - Alamofire
@@ -69,6 +70,7 @@ DEPENDENCIES:
   - GooglePlaces
   - Kingfisher (~> 3.0)
   - SwiftyJSON (from `https://github.com/SwiftyJSON/SwiftyJSON.git`)
+  - VideoBackground (~> 0.1.0)
 
 EXTERNAL SOURCES:
   SwiftyJSON:
@@ -97,7 +99,8 @@ SPEC CHECKSUMS:
   Kingfisher: a0ac82dc5bcf0388dd74b294cf2cc13730c63436
   ObjectMapper: 65abcfd9a61cf7396cbd14a4fb22fddfcc46577e
   SwiftyJSON: 05cf0e98a950e2ba343735264f5a96b81e755d00
+  VideoBackground: a075b37775ff0dd72575151407dd48685d5b9d6b
 
-PODFILE CHECKSUM: 946c973a2698d7bc83ced0fb49b6026efd6cdb7b
+PODFILE CHECKSUM: 205fdda97776752111feb2c5bd284dd1857f4de8
 
 COCOAPODS: 1.2.1
