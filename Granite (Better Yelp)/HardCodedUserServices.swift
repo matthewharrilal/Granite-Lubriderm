@@ -56,6 +56,24 @@ struct UserService {
         return completion(Auth.auth().currentUser!)
         }
     }
+    // To get all the users in the table view cells except for the current user logged in the table view cells
+    static func usersExcludingCurrentUser(completion: @escaping([HardCodedUsers])-> Void) {
+        let currentUser = HardCodedUsers.current
+        // What this essentially means is that we are creating this new let constant called currentUser and setting it equal to the current user in the hard coded users array
+        
+        // Secondly we are creating a database reference to read and iterate over the users from our database
+        let databaseReference = Database.database().reference().child("users")
+        // And the reason we dont add another child is becauase if we add the child of the uid is because we would be reading from the current users credentials where as where we stop at the child "users" we would be reading from all our users in our database
+        
+        // Observing and taking a snapshot of the users within our database
+        databaseReference.observeSingleEvent(of: .value, with: { (snapshot) in
+            guard let snapshot = snapshot.children.allObjects as? [DataSnapshot]
+                else {return completion([])}
+            
+        })
+    // So essentially what we are doing here is that we are 
+    }
+    
     static func observeProfile(for user: HardCodedUsers, completion: @escaping(DatabaseReference, HardCodedUsers?) -> Void )-> DatabaseHandle {
         let uid = Auth.auth().currentUser?.uid
     let userRef = Database.database().reference().child("users").child(uid!)

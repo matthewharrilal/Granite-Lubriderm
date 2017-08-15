@@ -221,6 +221,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     func saveImageUserDefaults () {
         
     }
+    //So essentially the problem we are facing is that we want to be able t now grab the user bio from firebase whenever the user goes to their account or taps on the button 
     
     
     func setupProfile() {
@@ -230,6 +231,9 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         Database.database().reference().child("users").child(uid!).observeSingleEvent(of: .value, with: { (snapshot) in
             if let dict = snapshot.value as? [String: Any] {
                 self.usernameLabel.text = dict["username"] as? String
+                self.userBio.text = dict["userBio"] as? String
+                // The reason we add this line of code above is because we wanted to when the user opens up the app again we wanted to be able to have the bio they had originally be saved to their profile when they pressed the save changes button
+                print("The cat is out of the bag")
                 print(self.usernameLabel.text)
                 if let profileImageURL = dict["pic"] as? String {
                     let url = URL(string: profileImageURL)
