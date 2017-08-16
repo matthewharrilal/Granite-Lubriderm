@@ -27,9 +27,10 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     //    var users = [HardCodedUsers]()
     @IBOutlet weak var userBio: UITextView!
     @IBOutlet weak var githubNameLabel: UILabel!
+    @IBOutlet weak var githubLink: UITextField!
     
     @IBOutlet weak var compLanguageTextField: UITextField!
-        @IBOutlet weak var usernameLabel: UILabel!
+    @IBOutlet weak var usernameLabel: UILabel!
     var hello = 3
     
     let computerLanguages = ["Java", "JavaScript", "Swift", "C", "C++", "PHP", "Python", "Objective C", "Ruby", "R", "Perl", "NET", "SQL", "C#", "Visual Basic"]
@@ -45,10 +46,15 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         compLanguageTextField.text = computerLanguages[row]
     }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+       // setupProfile()
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        setupProfile()
+       // setupProfile()
+        // The reason we wouldnt call the setupProfile function here is because we dont want the it to be called everytime the view appears therefore that was the reason why it was reverting back everytime we went back to the original profile view because we were loading the view and the reason there was a lag since the view will appear loads data from memory before the view even because it is a network request to firebase
         
     }
     override func viewDidLoad() {
@@ -57,6 +63,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
         tap.cancelsTouchesInView = false
         view.addGestureRecognizer(tap)
+        setupProfile()
     }
     
     func dismissKeyboard() {
@@ -124,13 +131,14 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     @IBAction func saveChanges(_ sender: UIButton) {
         saveChanges()
         saveUserBioChanges()
-        setupProfile()
+        //setupProfile()
         if compLanguageTextField.text != "" {
-        saveCompLanguage()
+            saveCompLanguage()
             print("These are our glory days and you cant stop us")
         } else {
-        return
+            return
         }
+        saveGithubLink()
         
     }
     
@@ -225,8 +233,13 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         
         if let editedImage = info["UIImagePickerControllerEditedImage"] as? UIImage{
             selectedImageFromPicker = editedImage
-        }else if let originalImage = info["UIImagePickerControllerOriginalImage"] as? UIImage{
+            print("The if condition is getting printed")
+            
+        }
+        else if let originalImage = info["UIImagePickerControllerOriginalImage"] as? UIImage{
             selectedImageFromPicker = originalImage
+            print("The else condition is getting printed")
+            return
         }
         if let selectedImage = selectedImageFromPicker {
             profileImage.image = selectedImage
@@ -259,15 +272,17 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         Database.database().reference().child("users").child(uid!).observeSingleEvent(of: .value, with: { (snapshot) in
             if let dict = snapshot.value as? [String: Any] {
                 self.usernameLabel.text = dict["username"] as? String
-               // self.userBio.text = dict["userBio"] as? String
+                self.userBio.text = dict["userBio"] as? String
                 self.githubNameLabel.text = dict["githubName"] as? String
-              //  self.compLanguageTextField.text = dict["compLanguage"] as? String
+                self.compLanguageTextField.text = dict["compLanguage"] as? String
+                self.githubLink.text = dict["githubLink"] as? String
                 //                self.databaseRef.child("users").child((Auth.auth().currentUser?.uid)!).updateChildValues(["compLanguage" : compLabelText1])
                 // The reason we add this line of code above is because we wanted to when the user opens up the app again we wanted to be able to have the bio they had originally be saved to their profile when they pressed the save changes button
-                // self.compLanguagesLabel.text = dict["compLanguage"] as? String
-                print("The cat is out of the bag")
-                print(self.usernameLabel.text)
+                self.compLanguageTextField.text = dict["compLanguage"] as? String
+                print("Then it is automatically grabbing the previous saved picture from firebase almost instantly")
                 if let profileImageURL = dict["pic"] as? String {
+                    // It makes sense it is hitting this first because it has to populate the profile pic with the saved image from firebase
+                    // Then after that essentially what it has to do is then when the userchanges their profile pic it is hitting the if condition which essentially means that we are saying that the selected image from the library is equal to the edited image we are basically setting the two to be equal but the reson it reverts back instantly is because it now has to update in firebase
                     let url = URL(string: profileImageURL)
                     URLSession.shared.dataTask(with: url!, completionHandler: { (data, response, error) in
                         if error != nil {
@@ -285,20 +300,36 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
             }
         })
         
-          }
+    }
     // So the  error we are facing as of now is that it is not grabbing the username value from firebase and implementing it into our username label text
     // We figured out the solution to the problem and the problem was that we were assigning auto uids to the new users and they were getting authenticated with a different uid meaning that there was a discrepancy within the user identifcation not being able to connect between the authenticated user and the database user
     
     func saveCompLanguage() {
-    if compLanguageTextField.text != "",
-        let compText = compLanguageTextField.text {
-        if let userID = Auth.auth().currentUser?.uid {
-        databaseRef.child("users").child(userID).observeSingleEvent(of: .value, with: { (snapshot) in
-            self.databaseRef.child("users").child((Auth.auth().currentUser?.uid)!).updateChildValues(["compLanguage" : compText])
-            // Now the users daily computer science language they have chosen will be stored in firebase and will be like that when they return to their account by grabbing that data from firebase and putting it back into that text field
-            print("The computer science language the user has been chosen and will now be saved")
-        })
-        }
+        if compLanguageTextField.text != "",
+            let compText = compLanguageTextField.text {
+            if let userID = Auth.auth().currentUser?.uid {
+                databaseRef.child("users").child(userID).observeSingleEvent(of: .value, with: { (snapshot) in
+                    self.databaseRef.child("users").child((Auth.auth().currentUser?.uid)!).updateChildValues(["compLanguage" : compText])
+                    // Now the users daily computer science language they have chosen will be stored in firebase and will be like that when they return to their account by grabbing that data from firebase and putting it back into that text field
+                    print("The computer science language the user has been chosen and will now be saved")
+                })
+            }
         }
     }
+    
+    func saveGithubLink() {
+        if githubLink.text != "",
+            let githubText = githubLink.text {
+            if let userID = Auth.auth().currentUser?.uid{
+                databaseRef.child("users").child(userID).observeSingleEvent(of: .value, with: { (snapshot) in
+                    self.databaseRef.child("users").child((Auth.auth().currentUser?.uid)!).updateChildValues(["githubLink" : githubText])
+                })
+            }
+        }
+        
+    }
+    
+    
+    
 }
+
