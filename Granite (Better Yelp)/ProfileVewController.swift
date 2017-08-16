@@ -329,6 +329,12 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         
     }
     
+    func checkIfGithubLinkIsValid(textField: UITextField) {
+        if textField == githubLink {
+        if githubLink
+        }
+    }
+    
     
     
 }
