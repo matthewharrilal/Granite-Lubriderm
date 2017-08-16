@@ -124,7 +124,7 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     @IBAction func saveChanges(_ sender: UIButton) {
         saveChanges()
         saveUserBioChanges()
-        //setupProfile()
+        setupProfile()
         if compLanguageTextField.text != "" {
         saveCompLanguage()
             print("These are our glory days and you cant stop us")
@@ -259,9 +259,9 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
         Database.database().reference().child("users").child(uid!).observeSingleEvent(of: .value, with: { (snapshot) in
             if let dict = snapshot.value as? [String: Any] {
                 self.usernameLabel.text = dict["username"] as? String
-                self.userBio.text = dict["userBio"] as? String
+               // self.userBio.text = dict["userBio"] as? String
                 self.githubNameLabel.text = dict["githubName"] as? String
-                self.compLanguageTextField.text = dict["compLanguage"] as? String
+              //  self.compLanguageTextField.text = dict["compLanguage"] as? String
                 //                self.databaseRef.child("users").child((Auth.auth().currentUser?.uid)!).updateChildValues(["compLanguage" : compLabelText1])
                 // The reason we add this line of code above is because we wanted to when the user opens up the app again we wanted to be able to have the bio they had originally be saved to their profile when they pressed the save changes button
                 // self.compLanguagesLabel.text = dict["compLanguage"] as? String
