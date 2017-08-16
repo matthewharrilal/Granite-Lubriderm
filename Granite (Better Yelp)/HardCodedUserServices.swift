@@ -22,8 +22,8 @@ struct UserService {
 //        
 //    }
 //    
-    static func create(_ username: String, _ email: String, _ fullName: String, _ password: String, completion: @escaping(HardCodedUsers?) -> Void) {
-        let user = HardCodedUsers(username: username, email: email , fullName: fullName, password: password)
+    static func create(_ username: String, _ email: String, _ fullName: String, _ password: String, _ githubName: String,completion: @escaping(HardCodedUsers?) -> Void) {
+        let user = HardCodedUsers(username: username, email: email , fullName: fullName, password: password, githubName: githubName)
         let dict = user.dictValue
         let uid = Auth.auth().currentUser?.uid
         let ref = Database.database().reference().child("users").child(uid!)

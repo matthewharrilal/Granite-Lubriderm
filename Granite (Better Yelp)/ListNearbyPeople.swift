@@ -51,7 +51,10 @@ class ListNearbyPeople: UITableViewController, UISearchBarDelegate {
                 let username = dictionary["username"] as? String,
                 let email = dictionary["email"] as? String,
                 let fullName = dictionary["fullName"] as? String,
-                let password = dictionary["password"] as? String else {
+                let password = dictionary["password"] as? String,
+                let githubName = dictionary["githubName"] as? String
+            
+            else {
                 // So the reason i am thinking we are getting this bad instruction error is becauase the bio is something the user doesnt need to sign up therefore we dont need to initalize it and maybe we can go about it the same way we went about the profile pic, now the problem we are getting here is that it is finding nil in the database meaning theres no way to store that in firebase
                 
                 //let user = HardCodedUsers(username: String(describing: DataSnapshot()) )
@@ -62,7 +65,7 @@ class ListNearbyPeople: UITableViewController, UISearchBarDelegate {
                     print("WHAT")
                     return
             }
-            let user = HardCodedUsers(username: username, email: email, fullName: fullName, password: password)
+            let user = HardCodedUsers(username: username, email: email, fullName: fullName, password: password, githubName: githubName)
             
             self.hardCodedUsers.append(user)
             

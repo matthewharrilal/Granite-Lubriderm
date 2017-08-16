@@ -25,6 +25,8 @@ class CreateUsername: UIViewController {
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var agreementTextField: UITextField!
     
+    @IBOutlet weak var compLanguageLabel: UILabel!
+    @IBOutlet weak var githubName: UITextField!
     
     
     
@@ -71,7 +73,7 @@ class CreateUsername: UIViewController {
             } else {
                 
                 // This creates the user inside the database
-                UserService.create(self.usernameTextField.text!, self.emailTextField.text!, self.fullName.text!, self.passwordTextField.text!, completion: { (user) in
+                UserService.create(self.usernameTextField.text!, self.emailTextField.text!, self.fullName.text!, self.passwordTextField.text!, self.githubName.text!,completion: { (user) in
                     guard let user = user
                         else{
                             

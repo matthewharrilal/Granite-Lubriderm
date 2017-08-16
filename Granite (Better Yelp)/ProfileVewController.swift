@@ -16,7 +16,7 @@ import FirebaseAuth
 import CoreData
 
 
-class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIPickerViewDataSource,UIPickerViewDelegate {
     var authHandle: AuthStateDidChangeListenerHandle?
     var database: Database!
     var storage: Storage!
@@ -26,13 +26,30 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     var username: String?
     //    var users = [HardCodedUsers]()
     @IBOutlet weak var userBio: UITextView!
+    @IBOutlet weak var githubNameLabel: UILabel!
     
-    @IBOutlet weak var usernameLabel: UILabel!
+    @IBOutlet weak var compLanguageTextField: UITextField!
+        @IBOutlet weak var usernameLabel: UILabel!
     var hello = 3
+    
+    let computerLanguages = ["Java", "JavaScript", "Swift", "C", "C++", "PHP", "Python", "Objective C", "Ruby", "R", "Perl", "NET", "SQL", "C#", "Visual Basic"]
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return computerLanguages[row]
+    }
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return computerLanguages.count
+    }
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        compLanguageTextField.text = computerLanguages[row]
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         setupProfile()
+        
     }
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,10 +60,10 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     }
     
     func dismissKeyboard() {
-    view.endEditing(true)
+        view.endEditing(true)
     }
     // So essentially with the code that is about to come what we have to do is instead of saving the profile image to user defaults we can constantly be listening to the profile pic of the user  and listen for any updates and every time the  user opens up the app we can retrieve the photo from firebase
-        func presentLogOut(viewController: UIViewController) {
+    func presentLogOut(viewController: UIViewController) {
         let logOutAlert = UIAlertController(title: "Log Out", message: "Continue with this action if you want to log out", preferredStyle: .alert)
         let cancelAction = UIAlertAction(title:"Log Out", style: .default, handler: { _ in
             self.logUserOut()
@@ -107,8 +124,13 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     @IBAction func saveChanges(_ sender: UIButton) {
         saveChanges()
         saveUserBioChanges()
-        
-        
+        //setupProfile()
+        if compLanguageTextField.text != "" {
+        saveCompLanguage()
+            print("These are our glory days and you cant stop us")
+        } else {
+        return
+        }
         
     }
     
@@ -226,18 +248,23 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
     func saveImageUserDefaults () {
         
     }
-    //So essentially the problem we are facing is that we want to be able t now grab the user bio from firebase whenever the user goes to their account or taps on the button 
+    //So essentially the problem we are facing is that we want to be able t now grab the user bio from firebase whenever the user goes to their account or taps on the button
     
     
     func setupProfile() {
         profileImage.layer.cornerRadius = profileImage.frame.size.width/2
         profileImage.clipsToBounds = true
         let uid = Auth.auth().currentUser?.uid
+        //  let compLabelText1 = compLanguagesLabel.text
         Database.database().reference().child("users").child(uid!).observeSingleEvent(of: .value, with: { (snapshot) in
             if let dict = snapshot.value as? [String: Any] {
                 self.usernameLabel.text = dict["username"] as? String
                 self.userBio.text = dict["userBio"] as? String
+                self.githubNameLabel.text = dict["githubName"] as? String
+                self.compLanguageTextField.text = dict["compLanguage"] as? String
+                //                self.databaseRef.child("users").child((Auth.auth().currentUser?.uid)!).updateChildValues(["compLanguage" : compLabelText1])
                 // The reason we add this line of code above is because we wanted to when the user opens up the app again we wanted to be able to have the bio they had originally be saved to their profile when they pressed the save changes button
+                // self.compLanguagesLabel.text = dict["compLanguage"] as? String
                 print("The cat is out of the bag")
                 print(self.usernameLabel.text)
                 if let profileImageURL = dict["pic"] as? String {
@@ -258,7 +285,20 @@ class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, 
             }
         })
         
-    }
+          }
     // So the  error we are facing as of now is that it is not grabbing the username value from firebase and implementing it into our username label text
     // We figured out the solution to the problem and the problem was that we were assigning auto uids to the new users and they were getting authenticated with a different uid meaning that there was a discrepancy within the user identifcation not being able to connect between the authenticated user and the database user
+    
+    func saveCompLanguage() {
+    if compLanguageTextField.text != "",
+        let compText = compLanguageTextField.text {
+        if let userID = Auth.auth().currentUser?.uid {
+        databaseRef.child("users").child(userID).observeSingleEvent(of: .value, with: { (snapshot) in
+            self.databaseRef.child("users").child((Auth.auth().currentUser?.uid)!).updateChildValues(["compLanguage" : compText])
+            // Now the users daily computer science language they have chosen will be stored in firebase and will be like that when they return to their account by grabbing that data from firebase and putting it back into that text field
+            print("The computer science language the user has been chosen and will now be saved")
+        })
+        }
+        }
+    }
 }
